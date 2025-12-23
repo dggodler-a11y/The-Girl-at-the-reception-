@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Episode 3</title>
+<style>
+body {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #eee;
+  font-family: Arial;
+  padding: 20px;
+}
+#image-box {
+  width: 90%;
+  max-width: 700px;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #000;
+}
+#dialogue-box {
+  width: 90%;
+  max-width: 700px;
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 10px #000;
+}
+.btn {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #444;
+  color: #eee;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #666;
+}
+</style>
+</head>
+<body>
+
+<div id="image-box"></div>
+<div id="dialogue-box"></div>
+
+<script>
+const scenes = [
+  {
+    image: "images/Scene9.jpg",
+    dialogues: [
+      {
+        text: "Joe (thought): Finally… numbers are scratched. Interactive doors appear.",
+        choices: [
+          { text: "Knock left door", outcome: "Hollow sound. Nothing happens." },
+          { text: "Try handle left door", outcome: "Locked. Cold handle." },
+          { text: "Step back", outcome: "Nothing changes." },
+          { text: "Ignore", outcome: "Silence presses in." }
+        ]
+      },
+      {
+        text: "Joe (thought): Opposite door. Someone made sure this one stayed hidden.",
+        choices: [
+          { text: "Knock", outcome: "Sound barely echoes." },
+          { text: "Try handle", outcome: "Doesn’t move." },
+          { text: "Press ear to door", outcome: "Faint uneven sound, maybe breathing." },
+          { text: "Step away", outcome: "Corridor goes quiet again." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene11.jpg",
+    dialogues: [
+      {
+        text: "Door — FAR END: 306. Joe (thought): There you are.",
+        choices: [
+          { text: "Unlock the door", outcome: "Lock clicks open." },
+          { text: "Listen carefully", outcome: "Joe: Am I dumb or something? Silence." },
+          { text: "Knock once", outcome: "Great. Knocking on empty rooms now. No response." },
+          { text: "Look back down the corridor", outcome: "A shadow slips out of sight." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene12.jpg",
+    dialogues: [
+      {
+        text: "Room 306. Joe enters dim, dusty room. Shadows fill corners.",
+        choices: [
+          { text: "Look around carefully", outcome: "Dusty corners, old furniture." },
+          { text: "Sit on the bed", outcome: "Feels weary, nothing else happens." },
+          { text: "Inspect window", outcome: "Faint moonlight illuminates dust." },
+          { text: "Check closet", outcome: "Drawer with strange symbols — a code." }
+        ]
+      },
+      {
+        text: "Joe (thought): What is this… a code?",
+        choices: [
+          { text: "Try decoding the symbols", outcome: "Inputs 4-0-7. Box opens slowly." },
+          { text: "Ignore and check other corners", outcome: "Nothing unusual elsewhere." },
+          { text: "Sit on bed and examine envelope", outcome: "Envelope is empty, but paper feels old." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene13.jpg",
+    dialogues: [
+      {
+        text: "Inside the box: Photograph of receptionist girl, delicate necklace.",
+        choices: [
+          { text: "Keep the photo", outcome: "Joe: Why is her photo here? Did she stay here?" },
+          { text: "Don’t keep the photo", outcome: "Leaves photo aside." },
+          { text: "Take necklace for later", outcome: "Joe plans to give it to her as gift." }
+        ]
+      },
+      {
+        text: "Sudden soft tapping at the door.",
+        choices: [
+          { text: "Ignore the sound", outcome: "Tapping continues briefly then stops." },
+          { text: "Open the door carefully", outcome: "Nothing visible outside." },
+          { text: "Grab chair for protection", outcome: "Clutch chair. Room temperature drops. Faint whispers." },
+          { text: "Hide under the bed", outcome: "Shadow drifts across floor silently." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene14.jpg",
+    dialogues: [
+      {
+        text: "Joe (thought): Under the bed. Shadow gone?",
+        choices: [
+          { text: "Stay hidden longer", outcome: "Tension builds, quiet room." },
+          { text: "Crawl out and check rest of room", outcome: "No one there. Room quiet." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene15.jpg",
+    dialogues: [
+      {
+        text: "3 AM. Faint tapping outside door. Joe opens to see shadowy figure.",
+        choices: [
+          { text: "Go back inside room", outcome: "Door clicks shut. Shadow remains outside." },
+          { text: "Approach shadow carefully", outcome: "Shadow flickers and disappears." },
+          { text: "Inspect nearby doors/drawers", outcome: "Optional exploration." },
+          { text: "Run to reception via stairs", outcome: "Joe descends quickly." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene16.jpg",
+    dialogues: [
+      {
+        text: "Reception desk is empty. Drawers and cabinets are locked. Finds registration logs: no one registered for 3 years.",
+        choices: [
+          { text: "Check all drawers and cabinets", outcome: "Finds old papers, logs, envelopes. Confirms building deserted." },
+          { text: "Go back to room immediately", outcome: "Leaves reception. Suspense builds back in Room 306." }
+        ]
+      }
+    ]
+  }
+];
+
+let currentScene = 0;
+let currentDialogue = 0;
+
+const box = document.getElementById("image-box");
+const dialogueBox = document.getElementById("dialogue-box");
+
+function showDialogue() {
+  const scene = scenes[currentScene];
+  const dialogue = scene.dialogues[currentDialogue];
+
+  box.style.backgroundImage = `url('${scene.image}')`;
+  dialogueBox.innerHTML = dialogue.text;
+
+  dialogueBox.querySelectorAll("button").forEach(btn => btn.remove());
+
+  if (dialogue.choices.length > 0) {
+    dialogue.choices.forEach(choice => {
+      const btn = document.createElement("button");
+      btn.classList.add("btn");
+      btn.innerText = choice.text;
+      btn.onclick = () => {
+        alert(choice.outcome);
+        nextDialogue();
+      };
+      dialogueBox.appendChild(btn);
+    });
+  } else {
+    const btn = document.createElement("button");
+    btn.classList.add("btn");
+    btn.innerText = "Next";
+    btn.onclick = nextDialogue;
+    dialogueBox.appendChild(btn);
+  }
+}
+
+function nextDialogue() {
+  currentDialogue++;
+  if (currentDialogue >= scenes[currentScene].dialogues.length) {
+    currentDialogue = 0;
+    currentScene++;
+    if (currentScene >= scenes.length) currentScene = scenes.length - 1;
+  }
+  showDialogue();
+}
+
+showDialogue();
+</script>
+
+</body>
+</html>

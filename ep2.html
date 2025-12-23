@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Episode 2</title>
+<style>
+  body {
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #eee;
+    font-family: Arial;
+    padding: 20px;
+  }
+  #image-box {
+    width: 90%;
+    max-width: 700px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #000;
+  }
+  #dialogue-box {
+    width: 90%;
+    max-width: 700px;
+    background: #222;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 10px #000;
+  }
+  .btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background: #444;
+    color: #eee;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: #666;
+  }
+</style>
+</head>
+<body>
+
+<div id="image-box"></div>
+<div id="dialogue-box"></div>
+
+<script>
+const scenes = [
+  {
+    image: "images/Scene4.jpg",
+    dialogues: [
+      {
+        text: "Joe (thought): “That wasn’t on the map.”",
+        choices: [
+          { text: "Walk away", outcome: "He stops after a few steps. “No taxis.”" },
+          { text: "Go closer", outcome: "“Just a look.”" }
+        ]
+      },
+      {
+        text: "Joe (thought): “Someone’s there.” (Lights flicker inside.)",
+        choices: [
+          { text: "Enter", outcome: "Door creaks open." },
+          { text: "Hesitate, then enter", outcome: "Silence stretches… then the door opens." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene5.jpg",
+    dialogues: [
+      {
+        text: "Receptionist: “Good evening. I didn’t expect anyone… not today.”",
+        choices: [
+          { text: "Yeah, neither did I.", outcome: "She gives a small, curious smile." },
+          { text: "Is there a room available?", outcome: "She nods, studying him longer than necessary." }
+        ]
+      },
+      {
+        text: "Receptionist: “You look tired. Long day?”",
+        choices: [
+          { text: "You could say that.", outcome: "She tilts her head slightly, listening closely." },
+          { text: "It’s been one of those days.", outcome: "She tilts her head slightly, listening closely." }
+        ]
+      },
+      {
+        text: "Joe (thought): She doesn’t belong to a place like this.",
+        choices: [
+          { text: "You’re… beautiful.", outcome: "She pauses, then smiles softly." },
+          { text: "This place is quieter than I expected.", outcome: "Receptionist: Quiet keeps things from falling apart." }
+        ]
+      },
+      {
+        text: "Receptionist: “You’re here for the night?”",
+        choices: [
+          { text: "Just until morning.", outcome: "Morning comes quickly here." },
+          { text: "I don’t really have a plan.", outcome: "Plans tend to change here anyway." }
+        ]
+      },
+      {
+        text: "Receptionist: “We don’t get many guests. You’ll have the floor mostly to yourself.”",
+        choices: [
+          { text: "That’s fine.", outcome: "She nods, relieved." },
+          { text: "Mostly?", outcome: "Some things linger." }
+        ]
+      },
+      {
+        text: "Receptionist: “Third floor. Room 307.”",
+        choices: [
+          { text: "Any rules I should know?", outcome: "If you hear something… don’t assume it’s for you." },
+          { text: "Sounds good.", outcome: "She hands over the key without comment." }
+        ]
+      },
+      {
+        text: "Receptionist: “The elevator’s to your left. It can be slow.”",
+        choices: [
+          { text: "I’ll manage.", outcome: "She watches him turn away." },
+          { text: "Thanks… really.", outcome: "You’re welcome, Joe." }
+        ]
+      },
+      {
+        text: "Joe: “…How did you—” Receptionist (softly): “Enjoy your stay.”",
+        choices: [
+          { text: "Turn toward the elevator.", outcome: "Elevator Scene begins." },
+          { text: "Look back at her.", outcome: "She’s already looking down at the register." }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene6.jpg",
+    dialogues: [
+      {
+        text: "Panel Text: “SELECT FLOOR” (Elevator panel flickers.)",
+        choices: [
+          { text: "Press 1", outcome: "Button lights. Elevator hums but doesn’t move." },
+          { text: "Press 2", outcome: "Elevator moves briefly, then stops." },
+          { text: "Press 3", outcome: "Button flickers, panel glitches." },
+          { text: "Press 4", outcome: "Button lights instantly. Elevator starts moving up." }
+        ]
+      },
+      {
+        text: "Indicator: 2 → 3 → 4 (Stops at 4.)",
+        choices: [
+          { text: "Press 3", outcome: "No response." },
+          { text: "Press 4 again", outcome: "Elevator resumes movement on its own." },
+          { text: "Press Emergency", outcome: "Nothing happens." },
+          { text: "Do nothing", outcome: "Elevator continues smoothly." }
+        ]
+      },
+      {
+        text: "Joe (thought): Why does it feel like this floor doesn’t want to let go?",
+        choices: [
+          { text: "Watch the panel", outcome: "Indicator glitches, then changes." },
+          { text: "Watch the reflection", outcome: "Reflection lags behind." },
+          { text: "Close eyes", outcome: "A faint whisper passes." },
+          { text: "Grip the handrail", outcome: "Handrail is unnaturally cold." }
+        ]
+      },
+      {
+        text: "Speaker crackles: “…third… floor…”",
+        choices: [
+          { text: "Speak back", outcome: "Static. Voice cuts." },
+          { text: "Stay silent", outcome: "Elevator continues smoothly." },
+          { text: "Press 3", outcome: "Button flashes once." },
+          { text: "Step back", outcome: "Elevator slows." }
+        ]
+      },
+      {
+        text: "Panel Text: “FLOOR 3” (Elevator stops. Doors hesitate.)",
+        choices: [
+          { text: "Step out immediately", outcome: "Doors scrape his shoulder." },
+          { text: "Wait for doors to fully open", outcome: "Corridor revealed slowly." },
+          { text: "Look down at the floor", outcome: "Floor scratched with strange marks." },
+          { text: "Look back inside the elevator", outcome: "Elevator interior looks darker than before." }
+        ]
+      }
+    ]
+  }
+];
+
+let currentScene = 0;
+let currentDialogue = 0;
+
+const box = document.getElementById("image-box");
+const dialogueBox = document.getElementById("dialogue-box");
+
+function showDialogue() {
+  const scene = scenes[currentScene];
+  const dialogue = scene.dialogues[currentDialogue];
+
+  box.style.backgroundImage = `url('${scene.image}')`;
+  dialogueBox.innerHTML = dialogue.text;
+
+  // Remove previous buttons
+  dialogueBox.querySelectorAll("button").forEach(btn => btn.remove());
+
+  if (dialogue.choices.length > 0) {
+    dialogue.choices.forEach(choice => {
+      const btn = document.createElement("button");
+      btn.classList.add("btn");
+      btn.innerText = choice.text;
+      btn.onclick = () => {
+        alert(choice.outcome);
+        nextDialogue();
+      };
+      dialogueBox.appendChild(btn);
+    });
+  } else {
+    const btn = document.createElement("button");
+    btn.classList.add("btn");
+    btn.innerText = "Next";
+    btn.onclick = nextDialogue;
+    dialogueBox.appendChild(btn);
+  }
+}
+
+function nextDialogue() {
+  currentDialogue++;
+  if (currentDialogue >= scenes[currentScene].dialogues.length) {
+    currentDialogue = 0;
+    currentScene++;
+    if (currentScene >= scenes.length) currentScene = scenes.length - 1;
+  }
+  showDialogue();
+}
+
+// Initial display
+showDialogue();
+</script>
+
+</body>
+</html>

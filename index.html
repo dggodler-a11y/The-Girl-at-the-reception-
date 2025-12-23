@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Episodes</title>
+<style>
+  body {
+    background-color: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .episode-btn {
+    width: 200px;
+    padding: 15px;
+    margin: 10px;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    background-color: #444;
+    color: #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .episode-btn:hover {
+    background-color: #666;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Interactive Episodes</h1>
+<div class="container">
+  <button class="episode-btn" onclick="location.href='ep1.html'">Episode 1</button>
+  <button class="episode-btn" onclick="location.href='ep2.html'">Episode 2</button>
+  <button class="episode-btn" onclick="location.href='ep3.html'">Episode 3</button>
+  <button class="episode-btn" onclick="location.href='ep4.html'">Episode 4</button>
+  <button class="episode-btn" onclick="location.href='ep5.html'">Episode 5</button>
+  <button class="episode-btn" onclick="location.href='ep6.html'">Episode 6</button>
+</div>
+
+</body>
+</html>

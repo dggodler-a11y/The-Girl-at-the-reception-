@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Episode 1</title>
+<style>
+  body {
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #eee;
+    font-family: Arial;
+    padding: 20px;
+  }
+  #image-box {
+    width: 90%;
+    max-width: 700px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #000;
+  }
+  #dialogue-box {
+    width: 90%;
+    max-width: 700px;
+    background: #222;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 10px #000;
+  }
+  .btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background: #444;
+    color: #eee;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: #666;
+  }
+</style>
+</head>
+<body>
+
+<div id="image-box"></div>
+<div id="dialogue-box"></div>
+<button class="btn" onclick="prevImage()">Previous</button>
+<button class="btn" onclick="nextImage()">Next</button>
+
+<script>
+const scenes = [
+  {
+    image: "images/Scene1.jpg",
+    dialogues: [
+      {
+        text: "Joe (thought): “I wasn’t supposed to stay long. Just one night. Then I’d leave.”",
+        choices: [
+          { text: "Sit on the bed and think", outcome: "He exhales slowly. “Funny how leaving feels heavier than arriving.”" },
+          { text: "Keep packing", outcome: "He folds clothes mechanically. “No point delaying.”" }
+        ]
+      },
+      {
+        text: "Joe: “Finally.” (Phone vibrates. Taxi notification.)",
+        choices: [
+          { text: "Check yourself in the mirror", outcome: "He looks tired, older than he remembers. “Yeah… that’s me now.”" },
+          { text: "Ignore and grab the bag", outcome: "“Doesn’t matter.”" }
+        ]
+      },
+      {
+        text: "Joe (thought): “Just a ride. Nothing more.” (Door closes behind him)",
+        choices: []
+      }
+    ]
+  },
+  {
+    image: "images/Scene2.jpg",
+    dialogues: [
+      {
+        text: "Driver: “Evening.”",
+        choices: [
+          { text: "Evening.", outcome: "Driver: “Long day?”" },
+          { text: "Stay silent", outcome: "Driver: “Hmm.”" }
+        ]
+      },
+      {
+        text: "Driver: “Where to?”",
+        choices: [
+          { text: "Give address", outcome: "Driver: “Got it.”" },
+          { text: "Hesitate, then give address", outcome: "Driver: “You alright?”" }
+        ]
+      }
+    ]
+  },
+  {
+    image: "images/Scene3.jpg",
+    dialogues: [
+      {
+        text: "Driver: “You don’t talk much.”",
+        choices: [
+          { text: "Never needed to.", outcome: "Driver: “Fair enough.”" },
+          { text: "Stay quiet", outcome: "Driver: “Quiet types usually think a lot.”" }
+        ]
+      },
+      {
+        text: "Driver: “You from around here?”",
+        choices: [
+          { text: "Used to be.", outcome: "Driver: “Places change.”" },
+          { text: "Not anymore.", outcome: "Driver: “People do too.”" }
+        ]
+      },
+      {
+        text: "Driver: “Running from something or toward something?”",
+        choices: [
+          { text: "Does it matter?", outcome: "Driver: “Usually does.”" },
+          { text: "Neither.", outcome: "Driver: “That’s rare.”" }
+        ]
+      },
+      {
+        text: "Driver: “…What? Hospital?” (Phone rings. Driver stiffens.)",
+        choices: []
+      },
+      {
+        text: "Driver: “I’m sorry. Family emergency. I can’t finish the ride.”",
+        choices: [
+          { text: "It’s fine.", outcome: "Driver: “Thank you.”" },
+          { text: "You serious?", outcome: "Driver: “I don’t have a choice.”" }
+        ]
+      },
+      {
+        text: "Driver: “Wait here. I’ll call you another cab.” (Taxi stops near an unfamiliar building. He rushes out.)",
+        choices: []
+      }
+    ]
+  }
+];
+
+let currentScene = 0;
+let currentDialogue = 0;
+
+const box = document.getElementById("image-box");
+const dialogueBox = document.getElementById("dialogue-box");
+
+function showDialogue() {
+  const scene = scenes[currentScene];
+  const dialogue = scene.dialogues[currentDialogue];
+
+  box.style.backgroundImage = `url('${scene.image}')`;
+  dialogueBox.innerHTML = dialogue.text;
+
+  if (dialogue.choices.length > 0) {
+    dialogue.choices.forEach((choice) => {
+      const btn = document.createElement("button");
+      btn.classList.add("btn");
+      btn.innerText = choice.text;
+      btn.onclick = () => {
+        alert(choice.outcome);
+        nextDialogue();
+      };
+      dialogueBox.appendChild(btn);
+    });
+  } else {
+    const btn = document.createElement("button");
+    btn.classList.add("btn");
+    btn.innerText = "Next";
+    btn.onclick = nextDialogue;
+    dialogueBox.appendChild(btn);
+  }
+}
+
+function nextDialogue() {
+  currentDialogue++;
+  if (currentDialogue >= scenes[currentScene].dialogues.length) {
+    currentDialogue = 0;
+    currentScene++;
+    if (currentScene >= scenes.length) currentScene = scenes.length - 1; // stop at last scene
+  }
+  showDialogue();
+}
+
+// Initial display
+showDialogue();
+</script>
+
+</body>
+</html>

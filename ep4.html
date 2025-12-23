@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Episode 4</title>
+<style>
+body {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #eee;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+#image-box {
+  width: 90%;
+  max-width: 700px;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #000;
+}
+#dialogue-box {
+  width: 90%;
+  max-width: 700px;
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 10px #000;
+}
+.btn {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #444;
+  color: #eee;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #666;
+}
+</style>
+</head>
+<body>
+
+<div id="image-box"></div>
+<div id="dialogue-box"></div>
+
+<script>
+const scenes = [
+  // Scene 14 — Late Night Food / Girl Interaction
+  {
+    image: "images/Scene14.jpg",
+    dialogues: [
+      {
+        text: "[INT. ROOM 306 — NIGHT / ~40 MINUTES AFTER SHADOW] Joe returns to his room after checking reception. He locks the door and sits on the bed.\n\nJOE (thought): What was that… just my imagination? Or something else?\n\nAround 3 AM, a soft tapping comes from the door.\n\nJOE: \"Who’s there?\"\nGIRL (outside, softly): \"It’s me… I brought some food. Sorry for being late.\"",
+        choices: [
+          { text: "Open the door", outcome: "Joe opens the door. Scene continues." }
+        ]
+      }
+    ]
+  },
+  // Scene 19 — Girl Interaction with Tray
+  {
+    image: "images/Scene19.jpg",
+    dialogues: [
+      {
+        text: "She’s in a black dress, holding a tray carefully.\n\nGIRL: \"The chef was sick, so it took longer. I hope it’s alright.\"\n\nJOE (thought): She looks… really beautiful. I didn’t expect this.",
+        choices: [
+          { text: "It’s okay, don’t worry. Thank you for bringing this.", outcome: "She smiles softly. GIRL: 'You’re welcome. I hope it’s enough.'" },
+          { text: "You could’ve just left it outside, you know.", outcome: "She laughs quietly. GIRL: 'I wanted to make sure you got it safely. Plus… I didn’t mind.'" }
+        ]
+      },
+      {
+        text: "Talk about knock / shadow / registration",
+        choices: [
+          { text: "Ask about knock", outcome: "JOE: 'I heard knocking earlier. Was that you too?'\nGIRL: 'Yes… I didn’t want to wake you too early, but it got delayed.'" },
+          { text: "Ask about shadow", outcome: "JOE: 'Earlier… I saw a shadow in the hallway. Did you see anything?'\nGIRL: 'I didn’t… maybe it’s just the building playing tricks. Be careful.'" },
+          { text: "Ask about registration", outcome: "JOE: 'No one’s registered here for years… what’s going on?'\nGIRL: 'It’s like a remote area, so only a few people come. We don’t need formal registration for a few hours’ stay.'" }
+        ]
+      },
+      // Updated necklace scene
+      {
+        text: "Joe thinks of the necklace.",
+        choices: [
+          { text: "Return it", outcome: "JOE: 'Oh… I found a necklace. Is this yours?'\nGIRL: 'Yes! Thank you for keeping it safe. You can keep it as a little gift for our… delay and inconvenience. Maybe give it to someone close to you.'" },
+          { text: "Keep it for himself quietly", outcome: "JOE (thought): 'I’ll keep it for now… maybe I’ll explain later.'\nOutcome: Necklace stays with Joe; may influence later story events." }
+        ]
+      },
+      {
+        text: "Additional dialogue / reaction to girl",
+        choices: [
+          { text: "I saw the shadow, nothing more.", outcome: "She nods thoughtfully." },
+          { text: "I don’t want to talk about it.", outcome: "She smiles softly, understanding." }
+        ]
+      }
+    ]
+  },
+  // Scene 20 — Morning / Leaving the building
+  {
+    image: "images/Scene20.jpg",
+    dialogues: [
+      {
+        text: "[INT. ROOM 306 — MORNING] Joe wakes up and reflects quietly about last night.\n\nJOE (thought): Everything… from the shadow to the late visit… what even happened?\n\nHe gets ready, packs his things, and heads to the elevator.",
+        choices: [
+          { text: "Go to lobby / reception", outcome: "Scene continues at reception." }
+        ]
+      }
+    ]
+  },
+  // Scene 21 — Reception Interaction
+  {
+    image: "images/Scene21.jpg",
+    dialogues: [
+      {
+        text: "The girl is at the reception, smiling softly.\n\nGIRL: 'Good morning… sorry we don’t have breakfast ready this morning.' She hands Joe a small packet of biscuits.",
+        choices: [
+          { text: "Thank you, I’ll take them.", outcome: "Joe accepts politely; the girl smiles warmly." },
+          { text: "No, that’s okay, I’ll manage.", outcome: "Joe politely declines; the girl nods understandingly." }
+        ]
+      },
+      {
+        text: "GIRL: 'I hope your stay wasn’t too uncomfortable… and again, I’m sorry for all the delays last night.'\n\nJOE (thought): It’s fine… it’s actually… unforgettable.",
+        choices: [
+          { text: "Nod and exit", outcome: "Joe walks to the waiting taxi." }
+        ]
+      }
+    ]
+  },
+  // Scene 22 — Taxi Small Dialogue Chunks
+  {
+    image: "images/Scene22.jpg",
+    dialogues: [
+      { text: "Joe enters the taxi.\n\nJOE (thought): Everything from last night… it’s all so strange… but why do I feel… relieved to be leaving?", choices: [{ text: "Next", outcome: "" }] },
+      { text: "DRIVER (curious/shocked): 'Why… why did you come out of that building?'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "JOE (calm, matter-of-fact): 'I stayed there. It’s a hotel, right?'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "DRIVER (silent for a moment, tense): '…Do you do drugs? Are you addicted to something?'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "JOE (puzzled): 'No… I’m fine. Why?'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "DRIVER (still worried): 'What do you mean?'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "JOE (confident, shrugging): 'I stayed there… there even was a receptionist. A girl. She… she gave me food, talked to me… everything.'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "DRIVER (more shocked, voice trembling slightly): '…Are you trying to scare me? Or are you joking?'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "JOE (serious, leaning forward): 'What do you mean? I’m not joking.'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "DRIVER (voice low, tense, almost whispering): 'The girl… the receptionist… she was raped and killed years ago. The killer was never caught. No one has been inside that building for years… and that hotel has been abandoned ever since. That girl… she shouldn’t have been there.'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "JOE (stunned, whispering): 'What… what? How… how is that possible?'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "DRIVER (softly, almost a warning): 'Some things… can’t be explained. Maybe she appeared to you… maybe she chooses certain people. But don’t go back there. It’s not safe.'", choices: [{ text: "Next", outcome: "" }] },
+      { text: "PLAYER CHOICES — JOE RESPONDS", choices: [
+          { text: "Why did she appear to me?", outcome: "DRIVER: 'I don’t know… maybe she needed someone to see her. Don’t try to go back.'" },
+          { text: "What happened to the building after her death?", outcome: "DRIVER: 'After she died, everyone avoided it. No one wanted to stay. It’s haunted by tragedy and memory.'" },
+          { text: "Stay silent, reflect", outcome: "Joe stares out the window, thinking about the shadow, the late-night knock, the food, and the necklace. Silence and unease fill the taxi." }
+      ]}
+    ]
+  },
+  // Scene 23 — Reflection / Note
+  {
+    image: "images/Scene23.jpg",
+    dialogues: [
+      { text: "Joe glances down at his hand — the necklace and the photo of the girl are still there. Tucked behind the photo, he notices a small folded note with a cryptic symbol he hasn’t seen before — a hint that something more awaits in the next part of the story.", choices: [
+          { text: "Inspect note", outcome: "Joe examines the cryptic symbol; suspense builds for next part." },
+          { text: "Keep it aside", outcome: "Joe tucks note away. Story teases continuation." }
+      ]}
+    ]
+  },
+  // Scene 24 — Episode End
+  {
+    image: "images/Scene24.jpg",
+    dialogues: [
+      { text: "Episode ends. One click moves to 'Part 2 coming soon'.", choices: [{ text: "Next", outcome: "Text: Part 2 coming soon..." }] }
+    ]
+  }
+];
+
+let currentScene = 0;
+let currentDialogue = 0;
+
+const box = document.getElementById("image-box");
+const dialogueBox = document.getElementById("dialogue-box");
+
+function showDialogue() {
+  const scene = scenes[currentScene];
+  const dialogue = scene.dialogues[currentDialogue];
+
+  box.style.backgroundImage = `url('${scene.image}')`;
+  dialogueBox.innerHTML = dialogue.text;
+
+  // Remove previous buttons
+  dialogueBox.querySelectorAll("button").forEach(btn => btn.remove());
+
+  // Add choices/buttons
+  dialogue.choices.forEach(choice => {
+    const btn = document.createElement("button");
+    btn.classList.add("btn");
+    btn.innerText = choice.text;
+    btn.onclick = () => {
+      if(choice.outcome) alert(choice.outcome);
+      nextDialogue();
+    };
+    dialogueBox.appendChild(btn);
+  });
+}
+
+function nextDialogue() {
+  currentDialogue++;
+  if(currentDialogue >= scenes[currentScene].dialogues.length) {
+    currentDialogue = 0;
+    currentScene++;
+    if(currentScene >= scenes.length) currentScene = scenes.length - 1;
+  }
+  showDialogue();
+}
+
+// Initial display
+showDialogue();
+</script>
+
+</body>
+</html>
